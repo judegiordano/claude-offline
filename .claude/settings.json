@@ -4,8 +4,7 @@
         "ANTHROPIC_BASE_URL": "http://localhost:8080",
         "ANTHROPIC_API_KEY": "sk-no-key-required"
     },
-    // this is whatever alias you named in docker-compose commands
-    "model": "Qwen3-Coder-30B-A3B",
+    "model": "qwen2.5-coder-7b",
     "permissions": {
         "deny": [
             "Read(./.env.*)",

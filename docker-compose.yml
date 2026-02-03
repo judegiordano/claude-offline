@@ -11,9 +11,31 @@ services:
     command: >
       --host 0.0.0.0
       --port 8080
-      --model /app/models/Qwen3-Coder-30B-A3B-Instruct-Q5_K_M.gguf
-      --alias "Qwen3-Coder-30B-A3B"
+      --model /app/models/qwen2.5-coder-7b-instruct-q3_k_m.gguf
+      --alias "qwen2.5-coder-7b"
       --n-gpu-layers 0
       --ctx-size 20000
       --threads 8
+    restart: unless-stopped
+  claude-offline-gpu:
+    container_name: claude-offline-gpu
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/app/models
+    gpus:
+      - driver: nvidia
+        count: all
+        capabilities: [gpu]
+    command: >
+      --host 0.0.0.0
+      --port 8080
+      --model /app/models/qwen2.5-coder-7b-instruct-q3_k_m.gguf
+      --alias "qwen2.5-coder-7b"
+      --ctx-size 20000
+      --threads 6
+      --n-gpu-layers 35
     restart: unless-stopped
