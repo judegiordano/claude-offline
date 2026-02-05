@@ -2,7 +2,7 @@ services:
   claude-offline-cpu:
     build:
       context: .
-      dockerfile: Dockerfile.cpu
+      dockerfile: cpu.Dockerfile
     container_name: claude-offline-cpu
     ports:
       - "8080:8080"
@@ -11,8 +11,8 @@ services:
     command: >
       --host 0.0.0.0
       --port 8080
-      --model /app/models/qwen2.5-coder-7b-instruct-q3_k_m.gguf
-      --alias "qwen2.5-coder-7b"
+      --model /app/models/Qwen3-Coder-Next-UD-IQ1_S.gguf
+      --alias "qwen3-coder-next"
       --n-gpu-layers 0
       --ctx-size 20000
       --threads 8
@@ -21,7 +21,7 @@ services:
     container_name: claude-offline-gpu
     build:
       context: .
-      dockerfile: Dockerfile.gpu
+      dockerfile: gpu.Dockerfile
     ports:
       - "8080:8080"
     volumes:
@@ -33,9 +33,9 @@ services:
     command: >
       --host 0.0.0.0
       --port 8080
-      --model /app/models/qwen2.5-coder-7b-instruct-q3_k_m.gguf
-      --alias "qwen2.5-coder-7b"
+      --model /app/models/Qwen3-Coder-Next-UD-IQ1_S.gguf
+      --alias "qwen3-coder-next"
       --ctx-size 20000
-      --threads 6
-      --n-gpu-layers 35
+      --threads 8
+      --n-gpu-layers 20
     restart: unless-stopped
