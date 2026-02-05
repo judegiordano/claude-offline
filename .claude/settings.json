@@ -4,7 +4,7 @@
     "ANTHROPIC_BASE_URL": "http://localhost:8080",
     "ANTHROPIC_API_KEY": "sk-no-key-required"
   },
-  "model": "qwen3-coder-next",
+  "model": "qwen2.5-coder",
   "permissions": {
     "deny": ["Read(./.env.*)", "Read(models)"]
   }

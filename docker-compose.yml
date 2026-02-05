@@ -5,25 +5,28 @@ services:
       dockerfile: cpu.Dockerfile
     container_name: claude-offline-cpu
     ports:
-      - "8080:8080"
+      - "${PORT}:${PORT}"
     volumes:
       - ./models:/app/models
     command: >
       --host 0.0.0.0
-      --port 8080
-      --model /app/models/Qwen3-Coder-Next-UD-IQ1_S.gguf
-      --alias "qwen3-coder-next"
-      --n-gpu-layers 0
-      --ctx-size 20000
-      --threads 8
+      --port ${PORT}
+      --model /app/models/${MODEL_PATH}
+      --alias "${MODEL_ALIAS}"
+      --ctx-size ${CTX_SIZE}
+      --threads ${THREADS}
+      --n-gpu-layers ${GPU_LAYERS}
     restart: unless-stopped
+    env_file:
+      - .env
+
   claude-offline-gpu:
     container_name: claude-offline-gpu
     build:
       context: .
       dockerfile: gpu.Dockerfile
     ports:
-      - "8080:8080"
+      - "${PORT}:${PORT}"
     volumes:
       - ./models:/app/models
     gpus:
@@ -32,10 +35,12 @@ services:
         capabilities: [gpu]
     command: >
       --host 0.0.0.0
-      --port 8080
-      --model /app/models/Qwen3-Coder-Next-UD-IQ1_S.gguf
-      --alias "qwen3-coder-next"
-      --ctx-size 20000
-      --threads 8
-      --n-gpu-layers 20
+      --port ${PORT}
+      --model /app/models/${MODEL_PATH}
+      --alias "${MODEL_ALIAS}"
+      --ctx-size ${CTX_SIZE}
+      --threads ${THREADS}
+      --n-gpu-layers ${GPU_LAYERS}
     restart: unless-stopped
+    env_file:
+      - .env

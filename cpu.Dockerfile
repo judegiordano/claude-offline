@@ -1,5 +1,7 @@
 FROM ubuntu:22.04
 
+ENV PORT=${PORT}
+
 RUN apt-get update && apt-get install -y \
     build-essential \
     git \
@@ -19,6 +21,6 @@ WORKDIR /app/llama.cpp
 
 RUN mkdir -p /app/models
 
-EXPOSE 8080
+EXPOSE ${PORT}
 ENTRYPOINT ["./build/bin/llama-server"]
-CMD ["--host", "0.0.0.0", "--port", "8080"]
+CMD ["--host", "0.0.0.0", "--port", ${PORT}]

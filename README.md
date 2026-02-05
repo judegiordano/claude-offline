@@ -7,6 +7,11 @@
 
 ---
 
+
+```sh
+docker compose up claude-offline-cpu -d
+```
+
 current model:
 
 [unsloth/Qwen3-Coder-Next-GGUF](https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF)

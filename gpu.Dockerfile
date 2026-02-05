@@ -1,5 +1,6 @@
 FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
 
+ENV PORT=${PORT}
 ENV DEBIAN_FRONTEND=noninteractive
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
@@ -38,5 +39,6 @@ RUN cmake -B build -G Ninja \
 
 RUN mkdir -p /app/models
 
-EXPOSE 8080
+EXPOSE ${PORT}
 ENTRYPOINT ["./build/bin/llama-server"]
+CMD ["--host", "0.0.0.0", "--port", ${PORT}]
